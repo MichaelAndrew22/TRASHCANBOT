@@ -2,14 +2,14 @@ import pyfirmata
 import time
 
 
-class Motor:
+class Motors:
     def __init__(self):
         self.speed = 0
         self.direction = 0
 
         self.board = pyfirmata.Arduino('/dev/ttyACM0')
 
-        self.it = pyfirmata.util.Iterator(board)
+        self.it = pyfirmata.util.Iterator(self.board)
         self.it.start()
 
 #motor 1
@@ -65,17 +65,17 @@ class Motor:
         return self.direction
 
     def __str__(self):
-        return "Motor: speed = " + str(self.speed) + ", direction = " + str(self.direction)
+        return "Motors: speed = " + str(self.speed) + ", direction = " + str(self.direction)
 
 
 def main():
-    motor = Motor()
-    motor.set_speed(0.5)
-    motor.turn_left()
+    motors = Motors()
+    motors.set_speed(0.5)
+    motors.turn_left()
     time.sleep(5)
-    motor.turn_right()
+    motors.turn_right()
     time.sleep(5)
-    motor.stop()
-    print(motor)
+    motors.stop()
+    print(motors)
 
 main()
