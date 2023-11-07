@@ -11,54 +11,9 @@ socketio.init_app(app, cors_allowed_origins="*")
 
 motors = Motors("/dev/cu.usbmodem2201")
 
-
-
 @app.route('/', methods=['POST','GET'])
 def index():
     return render_template('index.html')
-
-"""
-
-
-@app.route('/forward', methods=['GET'])
-def forward():
-    motors = Motors("/dev/cu.usbmodem2201")
-    motors.set_speed(0.5)
-    motors.forward()
-    print(motors)
-    return render_template('index.html',motors=motors)
-
-@app.route('/backward', methods=['GET'])
-def backward():
-    motors = Motors("/dev/cu.usbmodem2201")
-    motors.set_speed(0.5)
-    motors.backward()
-    print(motors)
-    return render_template('index.html',motors=motors)
-
-@app.route('/left', methods=['GET'])
-def left():
-    motors = Motors("/dev/cu.usbmodem2201")
-    motors.set_speed(0.5)
-    motors.turn_left()
-    print(motors)
-    return render_template('index.html',motors=motors)
-
-@app.route('/right', methods=['GET'])
-def right():
-    motors = Motors("/dev/cu.usbmodem2201")
-    motors.set_speed(0.5)
-    motors.turn_right()
-    print(motors)
-    return render_template('index.html',motors=motors)
-
-@app.route('/stop', methods=['GET'])
-def stop():
-    motors = Motors("/dev/cu.usbmodem2201")
-    motors.stop()
-    print(motors)
-    return render_template('index.html',motors=motors)
-"""
 
 @socketio.on('connect')
 def test_connect():
@@ -79,41 +34,26 @@ def handle_message(message):
     socketio.emit('message', message)
 
     if message == 'forward':
-
-        motors.set_speed(0.5)
-        motors.forward()
-        print(motors)
-    elif message == 'backward':
-
         motors.set_speed(0.5)
         motors.backward()
         print(motors)
     elif message == 'left':
-
         motors.set_speed(0.5)
         motors.turn_left()
         print(motors)
     elif message == 'right':
-
         motors.set_speed(0.5)
         motors.turn_right()
         print(motors)
     elif message == 'stop':
-
         motors.stop()
         print(motors)
     else:
-        print('no message')
-
-
-
+        print('Unknown message')
 
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
 
-"""
-if __name__ == '__main__':
-    app.run()
-"""
+
 
