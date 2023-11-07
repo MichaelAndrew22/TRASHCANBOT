@@ -30,7 +30,6 @@ class Motors:
 
     def forward(self):
         self.direction = 0
-
         self.board.digital[4].write(0)
         self.board.digital[5].write(1)
 
@@ -39,7 +38,6 @@ class Motors:
 
     def backward(self):
         self.direction = 0
-
         self.board.digital[4].write(1)
         self.board.digital[5].write(0)
 
@@ -48,7 +46,6 @@ class Motors:
 
     def turn_left(self):
         self.direction = -1
-
         self.board.digital[4].write(1)
         self.board.digital[5].write(0)
 
@@ -57,7 +54,6 @@ class Motors:
 
     def turn_right(self):
         self.direction = 1
-
         self.board.digital[4].write(0)
         self.board.digital[5].write(1)
 
