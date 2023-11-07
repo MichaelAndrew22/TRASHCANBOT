@@ -1,6 +1,5 @@
 import pyfirmata
 
-
 class Motors:
     def __init__(self,address='/dev/ttyACM0'):
         self.speed = 0
@@ -19,7 +18,6 @@ class Motors:
         self.board.digital[9].mode = pyfirmata.PWM
         self.board.digital[10].mode = pyfirmata.OUTPUT
         self.board.digital[11].mode = pyfirmata.OUTPUT
-
 
 
     def set_speed(self, speed):
