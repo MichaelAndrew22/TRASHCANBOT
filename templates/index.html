@@ -8,7 +8,6 @@
     function setup(){
         createCanvas(300, 300)
         background(122)
-        //socket = io.connect("http://127:0.0.1:5000");
         socket=io();
         var button1 = createButton('Forward');
         button1.mousePressed(forward);
@@ -20,40 +19,33 @@
         button4.mousePressed(right);
         var button5 = createButton('Backward');
         button5.mousePressed(backward);
-
     }
+
     function draw(){
-
-
+        background(122)
+        stroke(220)
+        fill(220)
+        textSize(32);
+        text(frameCount,width/2,height/2);
     }
-
-
-
 
     function forward(){
-
         socket.emit('my event', {data: 'Forward'});
     }
     function left(){
-       // var socket = io();
         socket.emit('my event', {data: 'Left'});
     }
     function stop(){
-        //var socket = io();
         socket.emit('my event', {data: 'Stop'});
     }
     function right(){
-       // var socket = io();
         socket.emit('my event', {data: 'Right'});
     }
     function backward(){
-       // var socket = io();
         socket.emit('my event', {data: 'Backward'});
     }
 
-
 </script>
-
 
 <head>
     <meta charset="UTF-8">
