@@ -26,6 +26,38 @@ def test_disconnect():
 @socketio.on('my event')
 def handle_my_custom_event(json):
     print('received json: ' + str(json))
+
+    message = json['data']
+    message = message.lower()
+
+    if message == 'forward':
+        motors.set_speed(0.5)
+        motors.backward()
+        print(motors)
+
+    elif message == 'backward':
+        motors.set_speed(0.5)
+        motors.forward()
+        print(motors)
+
+    elif message == 'left':
+        motors.set_speed(0.5)
+        motors.turn_left()
+        print(motors)
+
+    elif message == 'right':
+        motors.set_speed(0.5)
+        motors.turn_right()
+        print(motors)
+
+    elif message == 'stop':
+        motors.stop()
+        print(motors)
+
+    else:
+        print('Unknown message')
+
+
     socketio.emit('my response', json)
 
 @socketio.on('message')
@@ -33,23 +65,7 @@ def handle_message(message):
     print('received message: ' + message)
     socketio.emit('message', message)
 
-    if message == 'forward':
-        motors.set_speed(0.5)
-        motors.backward()
-        print(motors)
-    elif message == 'left':
-        motors.set_speed(0.5)
-        motors.turn_left()
-        print(motors)
-    elif message == 'right':
-        motors.set_speed(0.5)
-        motors.turn_right()
-        print(motors)
-    elif message == 'stop':
-        motors.stop()
-        print(motors)
-    else:
-        print('Unknown message')
+
 
 
 if __name__ == '__main__':
