@@ -1,5 +1,8 @@
-Flask interface that streams opencv capture with buttons to control motors.
+HARDWARE: RASPI, ARDUINO
+SOFTWARE: FLASK, OPENCV, P5.JS, SOCKETIO, & PYFIRMATA
 
-Right now the motors are manually operated.
+Working prototype, as of now the motors are manually operated via buttons.
 
-Would be nice to have camera images influence the motors to make this bot autonomous.
+Next step is to have camera stream influence the motors to make this bot autonomous.
+
+
