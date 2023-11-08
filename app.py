@@ -67,13 +67,7 @@ def handle_message(message):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
-    while True:
-        _, frame = cap.read()
-        cv2.imshow(stream.name, stream.frame)
-        if cv2.waitKey(1) == ord('q'):
-            break
-
+    socketio.run(app)
 
 
 
