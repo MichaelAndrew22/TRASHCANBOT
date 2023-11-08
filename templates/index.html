@@ -5,7 +5,13 @@
 <script type="text/javascript" charset="utf-8">
 
     var socket;
+    var video;
     function setup(){
+        cursor(CROSS);
+        video = createCapture(VIDEO);
+        video.size(320, 240);
+        video.hide();
+        imageMode(CENTER);
         createCanvas(300, 300)
         background(122)
         socket=io();
@@ -25,8 +31,9 @@
         background(122)
         stroke(220)
         fill(220)
-        textSize(32);
-        text(frameCount,width/2,height/2);
+        textSize(22);
+        text(frameCount,20,20);
+        image(video,width/2,height/2);
     }
 
     function forward(){

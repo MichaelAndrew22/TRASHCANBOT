@@ -1,8 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from motors import Motors
-import pyfirmata
-import time
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234'
@@ -70,6 +68,12 @@ def handle_message(message):
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
+    while True:
+        _, frame = cap.read()
+        cv2.imshow(stream.name, stream.frame)
+        if cv2.waitKey(1) == ord('q'):
+            break
+
 
 
 
