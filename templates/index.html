@@ -7,15 +7,6 @@
     var socket;
     var video;
     function setup(){
-        cursor(CROSS);
-
-        video = createCapture(VIDEO);
-        video.size(320, 240);
-        video.hide();
-        imageMode(CENTER);
-
-        createCanvas(300, 300)
-        background(122)
         socket=io();
         var button1 = createButton('Forward');
         button1.mousePressed(forward);
@@ -29,14 +20,7 @@
         button5.mousePressed(backward);
     }
 
-    function draw(){
-        background(122)
-        stroke(220)
-        fill(220)
-        textSize(22);
-        text(frameCount,20,20);
-        image(video,width/2,height/2);
-    }
+    function draw(){}
 
     function forward(){
         socket.emit('my event', {data: 'Forward'});
@@ -63,6 +47,7 @@
 </head>
 <body>
 
+<img src="{{ url_for('video_feed') }}">
 
 </body>
 </html>
