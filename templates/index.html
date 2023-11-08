@@ -8,10 +8,12 @@
     var video;
     function setup(){
         cursor(CROSS);
+
         video = createCapture(VIDEO);
         video.size(320, 240);
         video.hide();
         imageMode(CENTER);
+
         createCanvas(300, 300)
         background(122)
         socket=io();
