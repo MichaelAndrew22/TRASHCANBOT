@@ -69,6 +69,7 @@ def handle_message(message):
 #OPENCV PORTION
 
 camera = cv2.VideoCapture(0)
+camera.set(cv2.CAP_PROP_FOURCC,cv2.VideoWriter_fourcc(*'MJPG'))
 
 
 def gen_frames():
