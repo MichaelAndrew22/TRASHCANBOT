@@ -1,4 +1,5 @@
 HARDWARE: RASPI, ARDUINO
+
 SOFTWARE: FLASK, OPENCV, P5.JS, SOCKETIO, & PYFIRMATA
 
 Working prototype, as of now the motors are manually operated via buttons.
