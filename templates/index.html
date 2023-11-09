@@ -6,37 +6,92 @@
 
     var socket;
     var video;
+    var slider;
     function setup(){
         socket=io();
-        var button1 = createButton('Forward');
+        slider = createSlider(0, 1, 0, 0.05);
+        slider.position(10, 330);
+        slider.style('width', '80px');
+
+        createCanvas(100,60)
+        background(122)
+        textSize(16)
+
+        fill(255)
+        text("Speed",3 , 50)
+
+        var button1 = createButton('FWD');
+        button1.size(100, 100);
         button1.mousePressed(forward);
-        var button2 = createButton('Left');
-        button2.mousePressed(left);
-        var button3 = createButton('Stop');
+
+        var button3 = createButton('STP');
+        button3.size(100, 100);
         button3.mousePressed(stop);
-        var button4 = createButton('Right');
+
+        var button2 = createButton('L');
+        button2.size(100, 100);
+        button2.mousePressed(left);
+
+        var button4 = createButton('R');
+        button4.size(100, 100);
         button4.mousePressed(right);
-        var button5 = createButton('Backward');
+
+        var button5 = createButton('BWD');
+        button5.size(100, 100);
         button5.mousePressed(backward);
     }
 
-    function draw(){}
+    function forward() {
+        var speed = slider.value();
+        socket.emit('my event', {data: 'Forward', speed: speed});
 
-    function forward(){
-        socket.emit('my event', {data: 'Forward'});
+        clear()
+        background(speed*222,0,0)
+        text("Speed: " + speed, 3, 50)
     }
+
+
+        function backward(){
+        var speed = slider.value();
+        socket.emit('my event', {data: 'Backward', speed: speed});
+
+        clear()
+        background(speed*222,0,0)
+        text("Speed: " + speed, 3, 50)
+
+    }
+
+
+
+     function stop(){
+        var speed = slider.value();
+        socket.emit('my event', {data: 'Stop', speed: speed});
+
+        clear()
+        background(speed*222,0,0)
+        text("Speed: " + speed, 3, 50)
+    }
+
+
     function left(){
-        socket.emit('my event', {data: 'Left'});
+        var speed = slider.value();
+        socket.emit('my event', {data: 'Left', speed: speed});
+
+        clear()
+        background(speed*222,0,0)
+        text("Speed: " + speed, 3, 50)
+
     }
-    function stop(){
-        socket.emit('my event', {data: 'Stop'});
-    }
+
     function right(){
-        socket.emit('my event', {data: 'Right'});
+        var speed = slider.value();
+        socket.emit('my event', {data: 'Right', speed: speed});
+
+        clear()
+        background(speed*222,0,0)
+        text("Speed: " + speed, 3, 50)
     }
-    function backward(){
-        socket.emit('my event', {data: 'Backward'});
-    }
+
 
 </script>
 
@@ -45,7 +100,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motors Control</title>
 </head>
+
+<style>
+
+body {
+        display: -ms-inline-flexbox;
+        background-color: #24252c;
+
+}
+
+button {
+    display: table-column-group;
+    background-color: darkslategray;
+    color: lightsalmon;
+    font-size: xx-large;
+    font-family: "Andale Mono", monospace;
+    box-shadow: black;
+    text-shadow: black;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid #000000;
+    cursor: grab;
+
+
+
+}
+
+</style>
 <body>
+
 
 <img src="{{ url_for('video_feed') }}">
 

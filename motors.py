@@ -2,7 +2,7 @@ import pyfirmata
 
 class Motors:
     def __init__(self,address='/dev/ttyACM0'):
-        self.speed = 0
+        self.speed = float(0)
         self.direction = 0
 
         self.board = pyfirmata.Arduino(address)
@@ -21,7 +21,7 @@ class Motors:
 
 
     def set_speed(self, speed):
-        self.speed = speed
+        self.speed = float(speed)
 
         self.board.digital[3].write(speed)
         self.board.digital[9].write(speed)
