@@ -16,6 +16,7 @@ speed = 0
 def index():
     return render_template('index.html')
 
+
 @socketio.on('connect')
 def test_connect():
     print('Client connected')
@@ -24,10 +25,11 @@ def test_connect():
 def test_disconnect():
     print('Client disconnected')
 
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
-
-@socketio.on('my event')
+@socketio.on('motor_control')
 def handle_my_custom_event(json):
     print('received json: ' + str(json))
 
@@ -37,14 +39,11 @@ def handle_my_custom_event(json):
     speed = json['speed']
     motors.set_speed(speed)
 
-
     if message == 'forward':
-
         motors.backward()
         print(motors)
 
     elif message == 'backward':
-
         motors.forward()
         print(motors)
 
@@ -54,22 +53,12 @@ def handle_my_custom_event(json):
         print(motors)
 
     elif message == 'right':
-
         motors.turn_right()
         print(motors)
 
     elif message == 'stop':
-
         motors.stop()
         print(motors)
-
-
-    socketio.emit('my response', json)
-
-@socketio.on('message')
-def handle_message(message):
-    print('received message: ' + message)
-    socketio.emit('message', message)
 
 
 #OPENCV PORTION
@@ -81,7 +70,6 @@ camera.set(cv2.CAP_PROP_FOURCC,cv2.VideoWriter_fourcc(*'MJPG'))
 def gen_frames():
     while True:
         success, frame = camera.read()  # read the camera frame
-
         if not success:
             break
         else:
@@ -91,9 +79,7 @@ def gen_frames():
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 
 if __name__ == '__main__':

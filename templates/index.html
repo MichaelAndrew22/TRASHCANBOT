@@ -7,38 +7,57 @@
     var socket;
     var video;
     var slider;
+
     function setup(){
         socket=io();
         slider = createSlider(0, 1, 0, 0.05);
         slider.position(10, 330);
-        slider.style('width', '80px');
+        slider.style('width', '125px');
+        slider.style('height', '25px');
+        slider.style('background-color', 'red');
+        slider.style('border-radius', '10px');
+        slider.style('border', '5px solid black');
+        slider.style('cursor', 'grab');
+        slider.style('outline', 'none');
+        slider.style('box-shadow', '0 0 10px #000000');
+        slider.style('font-size', '16px');
+        slider.style('font-family', 'Baghdad, Times, serif');
+        slider.style('font-weight', 'bold');
+        slider.style('color', 'gold');
+        slider.style('text-shadow', 'black');
+        slider.style('backdrop-filter', 'blur(10px)');
+        slider.style('border-radius', '10px');
+        slider.style('padding', '5px');
+        slider.style('margin', '4px');
+        slider.style('border', '5px dotted #000000');
 
-        createCanvas(100,60)
-        background(122)
-        textSize(16)
+        createCanvas(300,60)
 
-        fill(255)
-        text("Speed",3 , 50)
+        textSize(22)
+        cursor(CROSS)
+        fill(25)
+        text("Speed: 0",175 , 35)
 
-        var button1 = createButton('FWD');
-        button1.size(100, 100);
+        var button1 = createButton('F');
+        button1.size(125, 75);
         button1.mousePressed(forward);
 
-        var button3 = createButton('STP');
-        button3.size(100, 100);
+        var button5 = createButton('B');
+        button5.size(125, 75);
+        button5.mousePressed(backward);
+
+        var button3 = createButton('S');
+        button3.size(125, 75);
         button3.mousePressed(stop);
 
         var button2 = createButton('L');
-        button2.size(100, 100);
+        button2.size(125, 75);
         button2.mousePressed(left);
 
         var button4 = createButton('R');
-        button4.size(100, 100);
+        button4.size(125, 75);
         button4.mousePressed(right);
 
-        var button5 = createButton('BWD');
-        button5.size(100, 100);
-        button5.mousePressed(backward);
     }
 
     function forward() {
@@ -46,52 +65,40 @@
         socket.emit('my event', {data: 'Forward', speed: speed});
 
         clear()
-        background(speed*222,0,0)
-        text("Speed: " + speed, 3, 50)
+        text("Speed: " + speed, 175, 35)
     }
-
 
         function backward(){
         var speed = slider.value();
-        socket.emit('my event', {data: 'Backward', speed: speed});
+        socket.emit('motor_control', {data: 'Backward', speed: speed});
 
         clear()
-        background(speed*222,0,0)
-        text("Speed: " + speed, 3, 50)
-
+        text("Speed: " + speed, 175, 35)
     }
-
-
 
      function stop(){
         var speed = slider.value();
-        socket.emit('my event', {data: 'Stop', speed: speed});
+        socket.emit('motor_control', {data: 'Stop', speed: speed});
 
         clear()
-        background(speed*222,0,0)
-        text("Speed: " + speed, 3, 50)
+        text("Speed: " + speed, 175, 35)
     }
-
 
     function left(){
         var speed = slider.value();
-        socket.emit('my event', {data: 'Left', speed: speed});
+        socket.emit('motor_control', {data: 'Left', speed: speed});
 
         clear()
-        background(speed*222,0,0)
-        text("Speed: " + speed, 3, 50)
-
+        text("Speed: " + speed, 175, 35)
     }
 
     function right(){
         var speed = slider.value();
-        socket.emit('my event', {data: 'Right', speed: speed});
+        socket.emit('motor_control', {data: 'Right', speed: speed});
 
         clear()
-        background(speed*222,0,0)
-        text("Speed: " + speed, 3, 50)
+        text("Speed: " + speed, 175, 35)
     }
-
 
 </script>
 
@@ -105,34 +112,45 @@
 
 body {
         display: -ms-inline-flexbox;
-        background-color: #24252c;
-
+        background-image: linear-gradient(to left, rgba(135,206,250,0.5), rgba(135,206,250,1));
 }
 
 button {
     display: table-column-group;
-    background-color: darkslategray;
-    color: lightsalmon;
-    font-size: xx-large;
-    font-family: "Andale Mono", monospace;
+    background-color: lightskyblue;
+    color: gold;
+    font-size: xxx-large;
+    font-kerning: unset;
+    font-weight: bold;
+    font-optical-sizing: auto;
+    font-stretch: ultra-expanded;
+    font-variant: small-caps;
+    font-variant-caps: all-petite-caps;
+    font-variant-ligatures: common-ligatures;
+    font-variant-numeric: oldstyle-nums;
+    font-variant-east-asian: ruby;
+    font-variant-alternates: historical-forms;
+
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    box-shadow: black;
+    font-family: Baghdad, Times, serif;
     box-shadow: black;
     text-shadow: black;
     backdrop-filter: blur(10px);
     border-radius: 10px;
     padding: 5px;
-    margin: 5px;
-    border: 2px solid #000000;
+    margin: 4px;
+    border: 5px dotted #000000;
     cursor: grab;
 
-
-
 }
-
 </style>
+
 <body>
-
-
 <img src="{{ url_for('video_feed') }}">
-
 </body>
 </html>
