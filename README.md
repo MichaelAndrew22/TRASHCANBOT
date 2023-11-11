@@ -6,4 +6,5 @@ Working prototype, as of now the motors are manually operated via buttons.
 
 Next step is to have camera stream influence the motors to make this bot autonomous.
 
+Also would be cool to implement multiprocessing.
 
