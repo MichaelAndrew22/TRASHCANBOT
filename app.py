@@ -40,15 +40,14 @@ def handle_my_custom_event(json):
     motors.set_speed(speed)
 
     if message == 'forward':
-        motors.backward()
-        print(motors)
-
-    elif message == 'backward':
         motors.forward()
         print(motors)
 
+    elif message == 'backward':
+        motors.backward()
+        print(motors)
+
     elif message == 'left':
-        motors.set_speed(speed)
         motors.turn_left()
         print(motors)
 

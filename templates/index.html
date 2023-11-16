@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script src="{{url_for('static', filename='p5.js')}}"></script>
+<script src="{{url_for('static', filename='socket.io.js')}}"></script>
+
 <script type="text/javascript" charset="utf-8">
 
     var socket;
@@ -62,7 +63,7 @@
 
     function forward() {
         var speed = slider.value();
-        socket.emit('my event', {data: 'Forward', speed: speed});
+        socket.emit('motor_control', {data: 'Forward', speed: speed});
 
         clear()
         text("Speed: " + speed, 175, 35)
