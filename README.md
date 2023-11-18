@@ -2,9 +2,13 @@ HARDWARE: RASPI, ARDUINO
 
 SOFTWARE: FLASK, OPENCV, P5.JS, SOCKETIO, & PYFIRMATA
 
-Working prototype, as of now the motors are manually operated via buttons.
 
-Next step is to have camera stream influence the motors to make this bot autonomous.
 
-Also would be cool to implement multiprocessing.
 
+error running pyfirmata on newest python need to replace 
+
+len_args = len(inspect.getargspec(func)[0])
+
+with
+
+len_args = len(inspect.getfullargspec(func)[0])
