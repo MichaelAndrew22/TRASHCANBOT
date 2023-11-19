@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <script src="{{url_for('static', filename='p5.js')}}"></script>
 <script src="{{url_for('static', filename='socket.io.js')}}"></script>
 
@@ -12,6 +13,7 @@
     function setup(){
         socket=io();
         slider = createSlider(0, 1, 0, 0.05);
+        slider.id('slider');
         slider.position(10, 330);
         slider.style('width', '125px');
         slider.style('height', '25px');
@@ -39,24 +41,28 @@
         fill(25)
         text("Speed: 0",175 , 35)
 
-        var button1 = createButton('F');
-        button1.size(125, 75);
+        var ww = windowWidth;
+        ww = ww /10;
+
+        var button1 = createButton('👆︎');
+        button1.size(ww,ww);
         button1.mousePressed(forward);
 
-        var button5 = createButton('B');
-        button5.size(125, 75);
+        var button5 = createButton('👇︎');
+        button5.size(ww,ww);
         button5.mousePressed(backward);
 
-        var button3 = createButton('S');
-        button3.size(125, 75);
+        var button3 = createButton('☉');
+        button3.size(ww,ww);
         button3.mousePressed(stop);
 
-        var button2 = createButton('L');
-        button2.size(125, 75);
+        var button2 = createButton('👈︎');
+        button2.size(ww, ww);
         button2.mousePressed(left);
 
-        var button4 = createButton('R');
-        button4.size(125, 75);
+        var button4 = createButton('👉︎');
+        button4.id('right');
+        button4.size(ww, ww);
         button4.mousePressed(right);
 
     }
@@ -110,45 +116,14 @@
 </head>
 
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 64pt;
+    }
+body, html {background-color: #1d1c25;margin: 0;padding: 0;}.range {-webkit-appearance: none;-moz-appearance: none;position: absolute;left: 50%;top: 50%;width: 200px;margin-top: 10px;transform: translate(-50%, -50%);}input[type=range]::-webkit-slider-runnable-track {-webkit-appearance: none;background: rgba(59,173,227,1);background: -moz-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(59,173,227,1)), color-stop(25%, rgba(87,111,230,1)), color-stop(51%, rgba(152,68,183,1)), color-stop(100%, rgba(255,53,127,1)));background: -webkit-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);background: -o-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);background: -ms-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);background: linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3bade3 ', endColorstr='#ff357f ', GradientType=1 );height: 2px;}input[type=range]:focus {outline: none;}input[type=range]::-moz-range-track {-moz-appearance: none;background: rgba(59,173,227,1);background: -moz-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(59,173,227,1)), color-stop(25%, rgba(87,111,230,1)), color-stop(51%, rgba(152,68,183,1)), color-stop(100%, rgba(255,53,127,1)));background: -webkit-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);background: -o-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);background: -ms-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);background: linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3bade3 ', endColorstr='#ff357f ', GradientType=1 );height: 2px;}input[type=range]::-webkit-slider-thumb {-webkit-appearance: none;border: 2px solid;border-radius: 50%;height: 25px;width: 25px;max-width: 80px;position: relative;bottom: 11px;background-color: #1d1c25;cursor: -webkit-grab;-webkit-transition: border 1000ms ease;transition: border 1000ms ease;}input[type=range]::-moz-range-thumb {-moz-appearance: none;border: 2px solid;border-radius: 50%;height: 25px;width: 25px;max-width: 80px;position: relative;bottom: 11px;background-color: #1d1c25;cursor: -moz-grab;-moz-transition: border 1000ms ease;transition: border 1000ms ease;}.range.blue::-webkit-slider-thumb {border-color: rgb(59,173,227);}.range.ltpurple::-webkit-slider-thumb {border-color: rgb(87,111,230);}.range.purple::-webkit-slider-thumb {border-color: rgb(152,68,183);}.range.pink::-webkit-slider-thumb {border-color: rgb(255,53,127);}.range.blue::-moz-range-thumb {border-color: rgb(59,173,227);}.range.ltpurple::-moz-range-thumb {border-color: rgb(87,111,230);}.range.purple::-moz-range-thumb {border-color: rgb(152,68,183);}.range.pink::-moz-range-thumb {border-color: rgb(255,53,127);}input[type=range]::-webkit-slider-thumb:active {cursor: -webkit-grabbing;}input[type=range]::-moz-range-thumb:active {cursor: -moz-grabbing;}Resources1× 0.5× 0.25×Rerun
 
-body {
-        display: -ms-inline-flexbox;
-        background-image: linear-gradient(to left, rgba(135,206,250,0.5), rgba(135,206,250,1));
-}
-
-button {
-    display: table-column-group;
-    background-color: lightskyblue;
-    color: gold;
-    font-size: xxx-large;
-    font-kerning: unset;
-    font-weight: bold;
-    font-optical-sizing: auto;
-    font-stretch: ultra-expanded;
-    font-variant: small-caps;
-    font-variant-caps: all-petite-caps;
-    font-variant-ligatures: common-ligatures;
-    font-variant-numeric: oldstyle-nums;
-    font-variant-east-asian: ruby;
-    font-variant-alternates: historical-forms;
-
-    -moz-box-orient: vertical;
-    -moz-box-direction: normal;
-    flex-direction: column;
-    justify-content: left;
-    align-items: flex-start;
-    box-shadow: black;
-    font-family: Baghdad, Times, serif;
-    box-shadow: black;
-    text-shadow: black;
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 5px;
-    margin: 4px;
-    border: 5px dotted #000000;
-    cursor: grab;
-
-}
 </style>
 
 <body>

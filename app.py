@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = '1234'
 socketio = SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-motors = Motors("/dev/cu.usbmodem2201")
+motors = Motors("/dev/cu.usbmodem21301")
 speed = 0
 
 @app.route('/', methods=['POST','GET'])
