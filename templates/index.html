@@ -16,44 +16,13 @@ class dot {
  }
 
 }
-
-    var socket;
-    var video;
-    var slider;
-
-
-
+    let socket;
+    let video;
+    let myPos;
 
     function setup(){
 
-
         socket=io();
-        push();
-        rotate(QUARTER_PI)
-        slider = createSlider(0, 1, 0, 0.05);
-        slider.id('slider');
-        slider.position(10, 330);
-        slider.style('width', '125px');
-        slider.style('height', '25px');
-        slider.style('background-color', 'red');
-        slider.style('border-radius', '10px');
-        slider.style('border', '5px solid black');
-        slider.style('cursor', 'grab');
-        slider.style('outline', 'none');
-        slider.style('box-shadow', '0 0 10px #000000');
-        slider.style('font-size', '16px');
-        slider.style('font-family', 'Baghdad, Times, serif');
-        slider.style('font-weight', 'bold');
-        slider.style('color', 'gold');
-        slider.style('text-shadow', 'black');
-        slider.style('backdrop-filter', 'blur(10px)');
-        slider.style('border-radius', '10px');
-        slider.style('padding', '5px');
-        slider.style('margin', '4px');
-
-        pop();
-///////////////////////////////////////////////////////////////
-
 
         createCanvas(300,300);
         cursor(CROSS)
@@ -62,81 +31,57 @@ class dot {
         background("orange")
         myPos = new dot();
 
-        var ww = windowWidth;
+        let ww = windowWidth;
         ww = ww /10;
 
-        var div1 = createDiv('');
-        div1.size(300,ww);
-        div1.id('div1');
-
-        var button1 = createButton('👆︎');
+        let button1 = createButton('👆︎');
         button1.size(ww,ww);
         button1.mousePressed(forward);
 
-        var button5 = createButton('👇︎');
+        let button5 = createButton('👇︎');
         button5.size(ww,ww);
         button5.mousePressed(backward);
 
-        var button3 = createButton('☉');
+        let button3 = createButton('☉');
         button3.size(ww,ww);
         button3.mousePressed(stop);
 
-        var button2 = createButton('👈︎');
+        let button2 = createButton('👈︎');
         button2.size(ww, ww);
         button2.mousePressed(left);
 
-        var button4 = createButton('👉︎');
+        let button4 = createButton('👉︎');
         button4.size(ww, ww);
         button4.mousePressed(right);
 
     }
 
     function forward() {
-        var speed = slider.value();
-        socket.emit('motor_control', {data: 'Forward', speed: speed});
-
+         socket.emit('motor_control', {data: 'Forward'});
          myPos.y-=3;
          myPos.display();
-
-        div1.innerHTML = "Speed: " + speed;
     }
 
         function backward(){
-        var speed = slider.value();
-        socket.emit('motor_control', {data: 'Backward', speed: speed});
-
+         socket.emit('motor_control', {data: 'Backward'});
          myPos.y+=3;
          myPos.display();
-
-         div1.innerHTML = "Speed: " + speed;
     }
 
      function stop(){
-        var speed = slider.value();
-        socket.emit('motor_control', {data: 'Stop', speed: speed});
-        div1.innerHTML = "Speed: " + speed;
+         socket.emit('motor_control', {data: 'Stop'});
     }
 
     function left(){
-        var speed = slider.value();
-        socket.emit('motor_control', {data: 'Left', speed: speed});
-
+         socket.emit('motor_control', {data: 'Left'});
          myPos.x-=3;
          myPos.display();
-
-         div1.innerHTML = "Speed: " + speed;
-
     }
 
     function right(){
-        var speed = slider.value();
-        socket.emit('motor_control', {data: 'Right', speed: speed});
-
+         socket.emit('motor_control', {data: 'Right'});
          myPos.x+=3;
          myPos.display();
-
-         div1.innerHTML = "Speed: " + speed;
-
     }
 
 </script>
