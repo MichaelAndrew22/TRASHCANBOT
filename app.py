@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = '1234'
 socketio = SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-motors = Motors("/dev/cu.usbmodem2201")
+motors = Motors()
 speed = 0
 
 @app.route('/', methods=['POST','GET'])
@@ -37,27 +37,35 @@ def handle_my_custom_event(json):
     message = message.lower()
 
     speed = json['speed']
-    motors.set_speed(speed)
+    #motors.set_speed(speed)
 
     if message == 'forward':
         motors.forward()
-        print(motors)
+        sleep(2)
+        motors.stop()
+       # print(motors)
 
     elif message == 'backward':
         motors.backward()
-        print(motors)
+        sleep(2)
+        motors.stop()
+        #print(motors)
 
     elif message == 'left':
         motors.turn_left()
-        print(motors)
+        sleep(2)
+        motors.stop()
+        #print(motors)
 
     elif message == 'right':
         motors.turn_right()
-        print(motors)
+        sleep(2)
+        motors.stop()
+        #print(motors)
 
     elif message == 'stop':
         motors.stop()
-        print(motors)
+        #print(motors)
 
 
 #OPENCV PORTION

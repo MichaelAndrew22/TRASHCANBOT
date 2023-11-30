@@ -2,16 +2,36 @@
 <html lang="en">
 <script src="{{url_for('static', filename='p5.js')}}"></script>
 <script src="{{url_for('static', filename='socket.io.js')}}"></script>
-
 <script type="text/javascript" charset="utf-8">
+
+class dot {
+
+  constructor(){
+   this.x = width/2
+   this.y = height/2
+  }
+
+ display(){
+   circle(this.x,this.y,10)
+ }
+
+}
 
     var socket;
     var video;
     var slider;
 
+
+
+
     function setup(){
+
+
         socket=io();
+        push();
+        rotate(QUARTER_PI)
         slider = createSlider(0, 1, 0, 0.05);
+        slider.id('slider');
         slider.position(10, 330);
         slider.style('width', '125px');
         slider.style('height', '25px');
@@ -30,33 +50,43 @@
         slider.style('border-radius', '10px');
         slider.style('padding', '5px');
         slider.style('margin', '4px');
-        slider.style('border', '5px dotted #000000');
 
-        createCanvas(300,60)
+        pop();
+///////////////////////////////////////////////////////////////
 
-        textSize(22)
+
+        createCanvas(300,300);
         cursor(CROSS)
-        fill(25)
-        text("Speed: 0",175 , 35)
+        fill(255)
 
-        var button1 = createButton('F');
-        button1.size(125, 75);
+        background("orange")
+        myPos = new dot();
+
+        var ww = windowWidth;
+        ww = ww /10;
+
+        var div1 = createDiv('');
+        div1.size(300,ww);
+        div1.id('div1');
+
+        var button1 = createButton('👆︎');
+        button1.size(ww,ww);
         button1.mousePressed(forward);
 
-        var button5 = createButton('B');
-        button5.size(125, 75);
+        var button5 = createButton('👇︎');
+        button5.size(ww,ww);
         button5.mousePressed(backward);
 
-        var button3 = createButton('S');
-        button3.size(125, 75);
+        var button3 = createButton('☉');
+        button3.size(ww,ww);
         button3.mousePressed(stop);
 
-        var button2 = createButton('L');
-        button2.size(125, 75);
+        var button2 = createButton('👈︎');
+        button2.size(ww, ww);
         button2.mousePressed(left);
 
-        var button4 = createButton('R');
-        button4.size(125, 75);
+        var button4 = createButton('👉︎');
+        button4.size(ww, ww);
         button4.mousePressed(right);
 
     }
@@ -65,40 +95,48 @@
         var speed = slider.value();
         socket.emit('motor_control', {data: 'Forward', speed: speed});
 
-        clear()
-        text("Speed: " + speed, 175, 35)
+         myPos.y-=3;
+         myPos.display();
+
+        div1.innerHTML = "Speed: " + speed;
     }
 
         function backward(){
         var speed = slider.value();
         socket.emit('motor_control', {data: 'Backward', speed: speed});
 
-        clear()
-        text("Speed: " + speed, 175, 35)
+         myPos.y+=3;
+         myPos.display();
+
+         div1.innerHTML = "Speed: " + speed;
     }
 
      function stop(){
         var speed = slider.value();
         socket.emit('motor_control', {data: 'Stop', speed: speed});
-
-        clear()
-        text("Speed: " + speed, 175, 35)
+        div1.innerHTML = "Speed: " + speed;
     }
 
     function left(){
         var speed = slider.value();
         socket.emit('motor_control', {data: 'Left', speed: speed});
 
-        clear()
-        text("Speed: " + speed, 175, 35)
+         myPos.x-=3;
+         myPos.display();
+
+         div1.innerHTML = "Speed: " + speed;
+
     }
 
     function right(){
         var speed = slider.value();
         socket.emit('motor_control', {data: 'Right', speed: speed});
 
-        clear()
-        text("Speed: " + speed, 175, 35)
+         myPos.x+=3;
+         myPos.display();
+
+         div1.innerHTML = "Speed: " + speed;
+
     }
 
 </script>
@@ -110,45 +148,38 @@
 </head>
 
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 64pt;
+        align-items: center;
+    }
+    div{
+        color: whitesmoke;
+        font-size: xxx-large;
+    }
 
-body {
-        display: -ms-inline-flexbox;
-        background-image: linear-gradient(to left, rgba(135,206,250,0.5), rgba(135,206,250,1));
-}
+    body{
+        background-color: #000000;
+    }
+    #slider {
 
-button {
-    display: table-column-group;
-    background-color: lightskyblue;
-    color: gold;
-    font-size: xxx-large;
-    font-kerning: unset;
-    font-weight: bold;
-    font-optical-sizing: auto;
-    font-stretch: ultra-expanded;
-    font-variant: small-caps;
-    font-variant-caps: all-petite-caps;
-    font-variant-ligatures: common-ligatures;
-    font-variant-numeric: oldstyle-nums;
-    font-variant-east-asian: ruby;
-    font-variant-alternates: historical-forms;
 
-    -moz-box-orient: vertical;
-    -moz-box-direction: normal;
-    flex-direction: column;
-    justify-content: left;
-    align-items: flex-start;
-    box-shadow: black;
-    font-family: Baghdad, Times, serif;
-    box-shadow: black;
-    text-shadow: black;
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 5px;
-    margin: 4px;
-    border: 5px dotted #000000;
-    cursor: grab;
+        writing-mode: vertical-tb;
+          -webkit-rotate: 270deg;
+        -moz-rotate: 270deg;
+        -ms-rotate: 270deg;
+        -o-rotate: 270deg;
+        transform: rotate(270deg);
+        -webkit-transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
 
-}
+
+    }
+
 </style>
 
 <body>
