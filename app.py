@@ -1,5 +1,5 @@
 from flask import Flask, render_template, Response
-from motors2 import Motors
+from motors import Motors
 from flask_socketio import SocketIO
 import cv2
 from time import sleep
@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = '1234'
 socketio = SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-#motors = Motors()
+motors = Motors()
 speed = 0
 
 @app.route('/', methods=['POST','GET'])
@@ -41,18 +41,26 @@ def handle_my_custom_event(json):
 
     if message == 'forward':
         motors.forward()
+        sleep(2)
+        motors.stop()
        # print(motors)
 
     elif message == 'backward':
         motors.backward()
+        sleep(2)
+        motors.stop()
         #print(motors)
 
     elif message == 'left':
         motors.turn_left()
+        sleep(2)
+        motors.stop()
         #print(motors)
 
     elif message == 'right':
         motors.turn_right()
+        sleep(2)
+        motors.stop()
         #print(motors)
 
     elif message == 'stop':

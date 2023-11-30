@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <script src="{{url_for('static', filename='p5.js')}}"></script>
 <script src="{{url_for('static', filename='socket.io.js')}}"></script>
-
 <script type="text/javascript" charset="utf-8">
-
-
-
 
 class dot {
 
@@ -21,9 +16,6 @@ class dot {
  }
 
 }
-
-
-
 
     var socket;
     var video;
@@ -58,7 +50,7 @@ class dot {
         slider.style('border-radius', '10px');
         slider.style('padding', '5px');
         slider.style('margin', '4px');
-        slider.style('border', '5px dotted #000000');
+
         pop();
 ///////////////////////////////////////////////////////////////
 
@@ -67,10 +59,8 @@ class dot {
         cursor(CROSS)
         fill(255)
 
-
         background("orange")
         myPos = new dot();
-
 
         var ww = windowWidth;
         ww = ww /10;
@@ -81,74 +71,25 @@ class dot {
 
         var button1 = createButton('👆︎');
         button1.size(ww,ww);
-        button1.mouseOver(forward);
-        button1.mouseOut(stop);
-        button1.touchStarted(forward);
-        button1.touchEnded(stop);
+        button1.mousePressed(forward);
 
         var button5 = createButton('👇︎');
         button5.size(ww,ww);
-        button5.mouseOver(backward);
-        button5.mouseOut(stop);
-        button5.touchStarted(backward);
-        button5.touchEnded(stop);
+        button5.mousePressed(backward);
 
         var button3 = createButton('☉');
         button3.size(ww,ww);
-        button3.mouseOver(stop);
-        button3.mouseOut(stop);
-        button3.touchStarted(stop);
-        button3.touchEnded(stop);
+        button3.mousePressed(stop);
 
         var button2 = createButton('👈︎');
         button2.size(ww, ww);
-        button2.mouseOver(left);
-        button2.mouseOut(stop);
-        button2.touchStarted(left);
-        button2.touchEnded(stop);
+        button2.mousePressed(left);
 
         var button4 = createButton('👉︎');
         button4.size(ww, ww);
-        button4.mouseOver(right);
-        button4.mouseOut(stop);
-        button4.touchStarted(right);
-        button4.touchEnded(stop);
         button4.mousePressed(right);
 
-
-
-
-
     }
-
-
-
-
-
-
-    function deviceMoved() {
-
-  x = accelerationX;
-  y = accelerationY;
-
-  if(x<-10){
-    backward();
-    console.log("backward")
-  }
-  else if(x>10){
-    forward();
-  }
-  else if(y<-10){
-    left();
-  }
-  else if(y>10){
-    right();
-  }
-  else{
-    stop();
-  }
-
-}
 
     function forward() {
         var speed = slider.value();
@@ -173,8 +114,6 @@ class dot {
      function stop(){
         var speed = slider.value();
         socket.emit('motor_control', {data: 'Stop', speed: speed});
-
-        //clear()
         div1.innerHTML = "Speed: " + speed;
     }
 
