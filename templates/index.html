@@ -54,6 +54,13 @@ class dot {
         button4.size(ww, ww);
         button4.mousePressed(right);
 
+        let button6 = createButton('G');
+        button6.size(ww, ww);
+        button6.mousePressed(green);
+    }
+
+    function green(){
+        socket.emit('motor_control', {data: 'Green'})
     }
 
     function forward() {

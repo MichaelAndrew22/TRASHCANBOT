@@ -2,7 +2,27 @@ from flask import Flask, render_template, Response
 from motors import Motors
 from flask_socketio import SocketIO
 import cv2
+from gpiozero import Servo
+from gpiozero import LED
 from time import sleep
+from threading import Thread
+
+servo = Servo(25)
+grn = LED(4)
+grn_state = False
+
+def rotate():
+    while True:
+        servo.min()
+        sleep(1)
+        servo.mid()
+        sleep(1)
+        servo.max()
+        sleep(1)
+
+t = Thread(target=rotate)
+t.start()
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234'
@@ -58,6 +78,15 @@ def handle_my_custom_event(json):
 
     elif message == 'stop':
         motors.stop()
+
+    elif message == 'green':
+        if grn_state:
+            grn.off()
+            global grn_state = False
+        else:
+            grn.on()
+            global grn_state = True
+
 
 #OPENCV PORTION
 
