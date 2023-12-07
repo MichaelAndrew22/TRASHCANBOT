@@ -11,14 +11,17 @@ servo = Servo(25)
 grn = LED(4)
 grn_state = False
 
+servo.mid()
+
+
 def rotate():
-    while True:
-        servo.min()
-        sleep(1)
-        servo.mid()
-        sleep(1)
-        servo.max()
-        sleep(1)
+    servo.min()
+    sleep(1)
+    servo.mid()
+    sleep(1)
+    servo.max()
+    sleep(1)
+    servo.mid()
 
 
 
@@ -83,11 +86,11 @@ def handle_my_custom_event(json):
     elif message == 'green':
         if grn_state:
             grn.off()
-            global grn_state = False
+            grn_state = False
         else:
             grn.on()
             rotate()
-            global grn_state = True
+            grn_state = True
 
 
 #OPENCV PORTION
