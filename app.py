@@ -5,7 +5,7 @@ import cv2
 from gpiozero import Servo
 from gpiozero import LED
 from time import sleep
-from threading import Thread
+
 
 servo = Servo(25)
 grn = LED(4)
@@ -20,8 +20,7 @@ def rotate():
         servo.max()
         sleep(1)
 
-t = Thread(target=rotate)
-t.start()
+
 
 
 app = Flask(__name__)
@@ -56,6 +55,8 @@ def handle_my_custom_event(json):
     message = json['data']
     message = message.lower()
 
+    global grn_state
+
     if message == 'forward':
         motors.forward()
         sleep(2)
@@ -85,6 +86,7 @@ def handle_my_custom_event(json):
             global grn_state = False
         else:
             grn.on()
+            rotate()
             global grn_state = True
 
 
